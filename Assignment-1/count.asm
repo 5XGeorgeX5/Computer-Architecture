@@ -10,31 +10,30 @@ main:
     li   $t3, 0               # index
 
 loop:
-    bge  $t3, $t1, endLoop    # If loop index >= array size, exit loop
+    bge  $t3, $t1, endLoop    # if index >= array size
 
-    lw   $t4, 0($t0)          # Load array element into $t4
-    andi $t5, $t4, 1          # Check if the number is even (AND with 1)
+    lw   $t4, 0($t0)          # load the element into $t4
+    andi $t5, $t4, 1          # check if even (AND with 1)
 
-    beq  $t5, $zero, even     # If $t5 == 0 (even number), jump to even label
+    beq  $t5, $zero, incrementCounter    # if is even
 
 nextElement:
-    addi $t3, $t3, 1          # Increment loop index
-    addi $t0, $t0, 4          # Move to the next element in the array
-    j loop                    # Jump back to the loop
+    addi $t3, $t3, 1          # increment index
+    addi $t0, $t0, 4          # move to next element
+    j loop                    # return to the loop
 
-even:
-    addi $t2, $t2, 1          # Increment the even number counter
-    j nextElement             # Continue to the next array element
+incrementCounter:
+    addi $t2, $t2, 1          # increment counter
+    j nextElement             # return to the loop
 
 endLoop:
     li $v0, 4
-    la $a0, message
+    la $a0, message           # print message
     syscall
     
     li $v0, 1
-    move $a0, $t2
+    move $a0, $t2             # print count
     syscall
 
-    # Exit the program
-    li   $v0, 10              # Load the system call code for exit
+    li   $v0, 10              # exit program
     syscall
