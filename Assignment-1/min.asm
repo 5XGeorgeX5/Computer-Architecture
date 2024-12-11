@@ -1,43 +1,38 @@
 .data
     message: .asciiz "The minimum element in the array is: "
     array:   .word 10, 31, 5, 7, 11, 3, 8, 40, 12, 4
-    size:    .word 10  # Number of elements in the array
 
 .text
     main:
-        la   $t0, array           # Load base address of the array into $t0
-        lw   $t1, size            # Load array size into $t1
-        lw   $t2, 0($t0)          # Initialize minimum value ($t2) with the first element
-        li   $t3, 1               # Start index from the second element
+        la   $t0, array           # array
+        li   $t1, 10              # array size
+        lw   $t2, 0($t0)          # initialize minimum value $t2 with the first element
+        li   $t3, 1               # current index
 
     loop:
-        bge  $t3, $t1, endLoop    # If index >= size, exit loop
+        bge  $t3, $t1, endLoop    # if index >= array size, exit loop
 
-        sll  $t4, $t3, 2          # Calculate offset: index * 4 (4 bytes per word)
-        add  $t5, $t0, $t4        # Address of array[$t3]
-        lw   $t6, 0($t5)          # Load array[$t3] into $t6
+        lw   $t4, 0($t0)          # load the element into $t4
 
-        blt  $t6, $t2, updateMin  # If array[$t3] < current min, update min
+        blt  $t4, $t2, updateMin  # if $t4 < current min, update min
 
     nextElement:
-        addi $t3, $t3, 1          # Increment index
-        j    loop                 # Repeat loop
+        addi $t3, $t3, 1          # increment index
+        addi $t0, $t0, 4          # move to next element
+        j loop                    # return to the loop
 
     updateMin:
-        move $t2, $t6             # Update min with array[$t3]
-        j    nextElement          # Continue to the next element
+        move $t2, $t4             # update min with $t4
+        j    nextElement          # return to the loop
 
     endLoop:
-        # Print message
-        li   $v0, 4               # Syscall to print string
-        la   $a0, message         # Address of the message string
+        li $v0, 4
+        la $a0, message           # print message
+        syscall
+        
+        li $v0, 1
+        move $a0, $t2             # print min value
         syscall
 
-        # Print minimum value
-        li   $v0, 1               # Syscall to print integer
-        move $a0, $t2             # Load minimum value into $a0
-        syscall
-
-        # Exit program
-        li   $v0, 10              # Syscall to exit
+        li   $v0, 10              # exit program
         syscall
