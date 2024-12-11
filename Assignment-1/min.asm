@@ -8,6 +8,7 @@
         li   $t1, 10              # array size
         lw   $t2, 0($t0)          # initialize minimum value $t2 with the first element
         li   $t3, 1               # current index
+        addi $t0, $t0, 4          # move to next element
 
     loop:
         bge  $t3, $t1, endLoop    # if index >= array size, exit loop
