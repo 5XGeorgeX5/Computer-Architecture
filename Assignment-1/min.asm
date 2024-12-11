@@ -30,7 +30,7 @@
         li $v0, 4
         la $a0, message           # print message
         syscall
-        
+
         li $v0, 1
         move $a0, $t2             # print min value
         syscall
