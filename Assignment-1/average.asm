@@ -22,8 +22,8 @@
     endLoop:
         mtc1 $t1, $f0             # move size to $f0
         mtc1 $t2, $f1             # move sum to $f1
-        cvt.s.w $f0, $f0          # convert sum to float
-        cvt.s.w $f1, $f1          # convert size to float
+        cvt.s.w $f0, $f0          # convert size to float
+        cvt.s.w $f1, $f1          # convert sum to float
         div.s $f2, $f1, $f0       # $f2 = sum / size
 
         li $v0, 4
