@@ -1,6 +1,6 @@
 .data
     message: .asciiz "Average is: "
-    array: .word 7, 2, 5, 11, 4, 6, 1, 1, 8, 3
+    array:   .word 7, 2, 5, 11, 4, 6, 1, 1, 8, 3
 
 .text
     main:
