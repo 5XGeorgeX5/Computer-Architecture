@@ -1,6 +1,6 @@
 .data
     message: .asciiz "Count of even numbers is: "
-    array:  .word 10, 31, 5, 7, 11, 3, 8, 40, 12, 4
+    array:   .word 10, 31, 5, 7, 11, 3, 8, 40, 12, 4
 
 .text
     main:
@@ -20,18 +20,18 @@
     nextElement:
         addi $t3, $t3, 1          # increment index
         addi $t0, $t0, 4          # move to next element
-        j loop                    # return to the loop
+        j    loop                 # return to the loop
 
     incrementCounter:
         addi $t2, $t2, 1          # increment counter
-        j nextElement             # return to the loop
+        j    nextElement          # return to the loop
 
     endLoop:
         li $v0, 4
         la $a0, message           # print message
         syscall
         
-        li $v0, 1
+        li   $v0, 1
         move $a0, $t2             # print count
         syscall
 

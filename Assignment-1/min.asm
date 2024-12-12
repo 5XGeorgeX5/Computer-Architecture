@@ -20,7 +20,7 @@
     nextElement:
         addi $t3, $t3, 1          # increment index
         addi $t0, $t0, 4          # move to next element
-        j loop                    # return to the loop
+        j    loop                 # return to the loop
 
     updateMin:
         move $t2, $t4             # update min with $t4
@@ -31,7 +31,7 @@
         la $a0, message           # print message
         syscall
 
-        li $v0, 1
+        li   $v0, 1
         move $a0, $t2             # print min value
         syscall
 
